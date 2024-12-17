@@ -1,6 +1,7 @@
 # **ProShopper**
 
 ProShopper is a simple e-commerce website built with React. It features browsing products, adding items to the cart, and managing navigation with React Router. The project leverages DaisyUI for UI components and TailwindCSS for styling, making it easy to navigate and mobile-friendly.
+Hosted live at: https://proshopper.pages.dev/Cart
 
 ---
 
@@ -20,7 +21,7 @@ ProShopper is a simple e-commerce website built with React. It features browsing
 - **React Router** – To manage navigation between pages (Home, Shop, Cart).
 - **DaisyUI** – A TailwindCSS component library for ready-to-use UI components.
 - **TailwindCSS** – Utility-first CSS framework for fast styling.
-- **Vercel** – For easy deployment and hosting.
+- **Cloudflare** – For easy deployment and hosting.
 - **Vite** – Build tool that optimizes React development.
 - **External Product API** – Used to fetch product data dynamically.
 
