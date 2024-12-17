@@ -1,7 +1,8 @@
+// eslint-disable-next-line react/prop-types
 export default function Cart({ items }) {
   return (
     <>
-      <div className="cart text-3xl ">Here are the added items </div>
+      <div className="cart text-3xl flex justify-center">Your Items</div>
       <div className="grid grid-cols-3 gap-10 ml-10">
         {Object.entries(items).map(([key, product]) => (
           <div
@@ -15,8 +16,9 @@ export default function Cart({ items }) {
             </figure>
             <div className="card-body">
               <h2 className="card-title">{product.name}</h2>
+              <div className="text-2xl">Quantity: {product.quantity}</div>
 
-              <div className="text-3xl">{product.price}$</div>
+              <div className="text-3xl">Price: {product.price}$</div>
             </div>
           </div>
         ))}
