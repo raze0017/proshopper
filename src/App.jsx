@@ -2,20 +2,48 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Home/Home";
 import Cart from "./Cart/Cart";
-import Shop from "./Shop/Shop";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import Product from "./Shop/Product";
 function App() {
+  const [items, setitems] = useState([]);
+  const [count, setCount] = useState(0);
+  const [price, setPrice] = useState(0);
+  const addProducts = (item) => {
+    setitems((prevItems) => {
+      const newItems = { ...prevItems };
+      if (newItems[item.id]) {
+        newItems[item.id] = {
+          ...newItems[item.id],
+          quantity: newItems[item.id].quantity + 1,
+        };
+      } else {
+        newItems[item.id] = { ...item, quantity: 1 };
+      }
+      return newItems;
+    });
+    setCount((count) => count + 1);
+    setPrice(price + item.price);
+  };
+  useEffect(() => {
+    console.log(items); // Log after state updates
+  }, [items]);
+  useEffect(() => {
+    console.log(count); // Log after state updates
+  }, [count]);
   return (
     <Router>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <a href="/" className="btn btn-ghost text-xl">
+          <Link to="/" className="btn btn-ghost text-xl">
             Home
-          </a>
+          </Link>
         </div>
         <div className="flex-auto">
-          <a href="/Shop" className="btn btn-ghost text-xl">
+          <Link to="/Product" className="btn btn-ghost text-xl">
             Products
-          </a>
+          </Link>
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
@@ -39,7 +67,7 @@ function App() {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item">8</span>
+                <span className="badge badge-sm indicator-item">{count}</span>
               </div>
             </div>
             <div
@@ -47,11 +75,11 @@ function App() {
               className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow"
             >
               <div className="card-body">
-                <span className="text-lg font-bold">8 Items</span>
-                <span className="text-info">Subtotal: $999</span>
+                <span className="text-lg font-bold">{count} Items</span>
+                <span className="text-info">Subtotal: ${price}</span>
                 <div className="card-actions">
                   <button className="btn btn-primary btn-block">
-                    <a href="/Cart">View cart</a>
+                    <Link to="/Cart">View cart</Link>
                   </button>
                 </div>
               </div>
@@ -93,8 +121,11 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Shop" element={<Shop />} />
-        <Route path="/Cart" element={<Cart />} />
+        <Route
+          path="/Product"
+          element={<Product addProducts={addProducts} />}
+        />
+        <Route path="/Cart" element={<Cart items={items} />} />
       </Routes>
     </Router>
   );

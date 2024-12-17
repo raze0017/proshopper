@@ -6,6 +6,6 @@
 }
 img {
   width: 100%;
-  aspect-ratio: 1; /* Ensures square images */
+  aspect-ratio: 0.75; /* Ensures square images */
   object-fit: cover;
 }
