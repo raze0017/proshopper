@@ -2,16 +2,33 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Home/Home";
 import Cart from "./Cart/Cart";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Product from "./Shop/Product";
+
 function App() {
-  const [items, setitems] = useState([]);
-  const [count, setCount] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [items, setItems] = useState(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cartItems"));
+    return savedCart || {};
+  });
+
+  const [count, setCount] = useState(() => {
+    return JSON.parse(localStorage.getItem("cartCount")) || 0;
+  });
+
+  const [price, setPrice] = useState(() => {
+    return JSON.parse(localStorage.getItem("cartPrice")) || 0;
+  });
+
+  useEffect(() => {
+    // Sync items, count, and price to localStorage whenever they change
+    localStorage.setItem("cartItems", JSON.stringify(items));
+    localStorage.setItem("cartCount", JSON.stringify(count));
+    localStorage.setItem("cartPrice", JSON.stringify(price));
+  }, [items, count, price]); // Trigger when any of these states change
+
   const addProducts = (item) => {
-    setitems((prevItems) => {
+    setItems((prevItems) => {
       const newItems = { ...prevItems };
       if (newItems[item.id]) {
         newItems[item.id] = {
@@ -23,15 +40,11 @@ function App() {
       }
       return newItems;
     });
-    setCount((count) => count + 1);
-    setPrice(price + item.price);
+
+    setCount((prevCount) => prevCount + 1);
+    setPrice((prevPrice) => prevPrice + item.price);
   };
-  useEffect(() => {
-    console.log(items); // Log after state updates
-  }, [items]);
-  useEffect(() => {
-    console.log(count); // Log after state updates
-  }, [count]);
+
   return (
     <Router>
       <div className="navbar bg-base-100">
@@ -104,8 +117,7 @@ function App() {
             >
               <li>
                 <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
+                  Profile <span className="badge">New</span>
                 </a>
               </li>
               <li>
