@@ -3,7 +3,7 @@ export default function Cart({ items }) {
   return (
     <>
       <div className="cart text-3xl flex justify-center">Your Items</div>
-      <div className="grid grid-cols-3 gap-10 ml-10">
+      <div className="products flex flex-wrap gap-10 ml-10 md:grid md:grid-cols-4 sm:flex sm:flex-col sm:items-center">
         {Object.entries(items).map(([key, product]) => (
           <div
             key={key}

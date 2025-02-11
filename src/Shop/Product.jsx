@@ -45,7 +45,7 @@ export default function Product({ addProducts }) {
   };
   return (
     <>
-      <div className="grid grid-cols-4 gap-10 ml-10">
+      <div className="products flex flex-wrap gap-10 ml-10 md:grid md:grid-cols-4 sm:flex sm:flex-col sm:items-center">
         {prod.map((product) => (
           <div
             onClick={() => addProductss(product)}

@@ -4,6 +4,9 @@ export default {
   theme: {
     extend: {},
   },
-  // eslint-disable-next-line no-undef
+  darkMode: "class", // Forces dark mode using "dark" class
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["dark"], // Forces DaisyUI to use dark theme only
+  },
 };
